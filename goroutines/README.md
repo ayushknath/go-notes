@@ -54,3 +54,4 @@ func writeOnlyChan(ch chan<- int) {
 - If not closed, memory leak occurs
 - While using for loops and range to read from a channel, it will exit the loop once the channel has been closed (using built-in `close()`) or by any other mechanism (`break`)
 - Channels block when they are being written to or read from
+- If `ch chan int` is used (for both read and write) instead of specific read-only or write-only channels, then there is a chance of deadlock condition in which one process (lets say read operation on channel) waits for another process (write operation on channel) to finish but the write operation in turn depends on the read operation. In this case the program will not progress and get stuck.
